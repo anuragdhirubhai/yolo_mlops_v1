@@ -1,6 +1,7 @@
 import mlflow
 import mlflow.pyfunc
 from ultralytics import YOLO
+import os
 
 MODEL_NAME = "YOLO_Object_Detector"
 
@@ -15,7 +16,13 @@ class YOLOWrapper(mlflow.pyfunc.PythonModel):
         return results
 
 
-mlflow.set_tracking_uri("http://127.0.0.1:5000")
+if os.getenv("CI") == "true":
+    # Running inside GitHub Actions
+    mlflow.set_tracking_uri("sqlite:///mlflow.db")
+else:
+    # Running locally
+    mlflow.set_tracking_uri("http://127.0.0.1:5000")
+
 print("Tracking URI:", mlflow.get_tracking_uri())
 
 with mlflow.start_run(run_name="v2_power_move"):
