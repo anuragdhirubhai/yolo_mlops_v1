@@ -2,14 +2,14 @@ FROM python:3.11-slim
 
 WORKDIR /app
 
-RUN pip install --no-cache-dir mlflow
+COPY api/ api/
+COPY database/ database/
+COPY model_registry/ model_registry/
+COPY yolov8n.pt yolov8n.pt
+COPY requirements.txt requirements.txt
 
-ENV MLFLOW_TRACKING_URI=sqlite:///mlflow.db
+RUN pip install --no-cache-dir -r requirements.txt
 
-EXPOSE 5000
+EXPOSE 8000
 
-CMD mlflow server \
-    --host 0.0.0.0 \
-    --port 5000 \
-    --backend-store-uri sqlite:///mlflow.db \
-    --default-artifact-root ./mlartifacts
+CMD ["uvicorn", "api.app:app", "--host", "0.0.0.0", "--port", "8000"]
