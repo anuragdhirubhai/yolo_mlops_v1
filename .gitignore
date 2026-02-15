@@ -1,0 +1,29 @@
+# Python cache
+__pycache__/
+*.pyc
+
+# Virtual environment
+mlops/
+venv/
+.env
+
+# MLflow
+mlruns/
+mlflow.db
+mlartifacts/
+
+# Local databases
+*.db
+
+# Images / test files
+*.jpg
+*.jpeg
+*.png
+*.webp
+
+# YOLO weights
+*.pt
+
+# OS files
+.DS_Store
+Thumbs.db
