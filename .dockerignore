@@ -1,0 +1,8 @@
+mlops/
+mlartifacts/
+mlruns/
+*.pt
+*.jpg
+*.png
+*.webp
+mlflow.db
